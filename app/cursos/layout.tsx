@@ -15,13 +15,11 @@ export default function CursosLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
-      <body className="min-h-screen bg-background antialiased">
-        <AuthProvider>
-          {children}
-          <Toaster />
-        </AuthProvider>
-      </body>
-    </html>
+    <AuthProvider>
+      <main className="min-h-screen bg-background antialiased">
+        {children}
+        <Toaster />
+      </main>
+    </AuthProvider>
   )
 }
