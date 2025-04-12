@@ -1,0 +1,29 @@
+name: Auto Version Update
+
+on:
+  push:
+    branches:
+      - main  # ou "master", dependendo do seu branch principal
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # necessário para tags
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Auto Version Update (SemVer)
+        uses: phips28/gh-action-bump-version@v9.0.0
+        with:
+          tag-prefix: 'v'
+          commit-message: 'chore(release): bump version to {{version}}'
+          default: 'patch'  # padrão: patch (pode ser minor/major)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
